@@ -20,10 +20,10 @@ function stackSortArray(array $someRandomArray, &$itNum) : array
                 $min = $value;
                 $key1 = $key;
             }
+            $itNum++;
         }
     	$sortedArray[] = $min;
     	unset ($someRandomArray[$key1]);
-    	$itNum++;
     } while (count($someRandomArray) > 0);
 
     return $sortedArray;
