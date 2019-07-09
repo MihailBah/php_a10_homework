@@ -3,7 +3,7 @@
 require_once 'task.php';
 require_once 'advancedSort.php';
 
-const LEN = 1500;
+const LEN = 15000;
 const REQUIRED_PROFIT = 50;
 
 $randomArray = range(1, LEN);

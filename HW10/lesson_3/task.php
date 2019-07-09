@@ -12,10 +12,17 @@ function stackSortArray(array $someRandomArray, &$itNum) : array
     // TODO: create sorting
 
     do {
-    	$sortedArray[] = min($someRandomArray);
-    	$someRandomArray = array_flip($someRandomArray);
-    	unset ($someRandomArray[end($sortedArray)]);
-    	$someRandomArray = array_flip($someRandomArray);
+
+        $min = null;
+        $key1 = '';
+        foreach ($someRandomArray as $key => $value) {
+            if ($value < $min || is_null($min)){
+                $min = $value;
+                $key1 = $key;
+            }
+        }
+    	$sortedArray[] = $min;
+    	unset ($someRandomArray[$key1]);
     	$itNum++;
     } while (count($someRandomArray) > 0);
 
