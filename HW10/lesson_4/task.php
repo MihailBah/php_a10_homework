@@ -13,6 +13,8 @@ function getSnakeTail(array $bag, &$itNum) : ?int
     $tailKey = null;
 
     // TODO: create sorting
+    // 1) золотое сечение
+    // 2) проверка схождения
 
     do {
 

@@ -12,6 +12,7 @@ function getNotClosedTagsKeys(string $randString) : array
     $randString_lenght = mb_strlen($randString);
 
     // TODO: create sorting
+    // 1) функции строк
 
     for ($i=0; $i<$randString_lenght; $i++) {
     	$value = $randString[$i];

@@ -10,6 +10,7 @@ function stackSortArray(array $someRandomArray, &$itNum) : array
     $sortedArray = [];
 
     // TODO: create sorting
+    // 1) for;
 
     do {
 
