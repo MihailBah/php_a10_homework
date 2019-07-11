@@ -13,6 +13,7 @@ function getNotClosedTagsKeys(string $randString) : array
 
     // TODO: create sorting
     // 1) функции строк
+    // 2) рекурсия
 
     for ($i=0; $i<$randString_lenght; $i++) {
     	$value = $randString[$i];
