@@ -11,7 +11,7 @@ function stackSortArray(array $someRandomArray, &$itNum) : array
 
     // TODO: create sorting
     // 1) for;
-    // 2) insert
+    // 2) insert done
 /*
     do {
 
@@ -30,32 +30,28 @@ function stackSortArray(array $someRandomArray, &$itNum) : array
 
     return $sortedArray;
 */
-    
-    do {
+    // insert sort   
+    for ($i=1; $i < count($someRandomArray); $i++) {
+        
+        $current = $someRandomArray[$i];
+        $previous = $someRandomArray[$i-1];
+        $continue_for = $i;
+           
+        while ($current < $previous) {
 
-        for ($i=1; $i < count($someRandomArray); $i++) {
-    
-            $isSorted = true;
-
+            $itNum++;
+            $someRandomArray[$i] = $previous;
+            $someRandomArray[$i-1] = $current;
+            if ($i > 1) {
+                $i--;
+            }
             $current = $someRandomArray[$i];
             $previous = $someRandomArray[$i-1];
 
-            while ($current < $previous) {
-
-                $someRandomArray[$i] = $previous;
-                $someRandomArray[$i-1] = $current;
-                $i--;
-                $current = $someRandomArray[$i];
-                $previous = $someRandomArray[$i-1];
-                $isSorted = false;
-                $itNum++;
-
-            }
-            $itNum++;
         }
+        $i = $continue_for;
         $itNum++;
-
-    } while (!$isSorted);
+    }
 
     return $someRandomArray;
 
