@@ -1,9 +1,9 @@
 <?php
 
 require_once 'task.php';
-require_once 'advancedSort.php';
+require_once 'example.php';
 
-const LEN = 15000;
+const LEN = 150;
 const REQUIRED_PROFIT = 50;
 
 $randomArray = range(1, LEN);

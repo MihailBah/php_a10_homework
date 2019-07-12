@@ -5,7 +5,7 @@
  * @param $itNum
  * @return array
  */
-function stackSortArray(array $someRandomArray, &$itNum) : array
+function advancedSortArray(array $someRandomArray, &$itNum) : array
 {
     $max = null;
 
