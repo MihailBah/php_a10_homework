@@ -1,4 +1,18 @@
+1) select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+
+
 2) select concat('Series: ', s.title, ' film: ', f.title) as `Films in BD` from series s inner join films_series fs on (s.id = fs.series_id) inner join films f on (f.id = fs.film_id) order by s.title, f.year desc;
+
+2.1) select s.title as Series, count(s.title) from series s inner join films_series fs on (s.id = fs.series_id) inner join films f on (f.id = fs.film_id) group by Series order by count(Series) desc;
+
+3.1) select p.full_name as `The most playing actor`, group_concat(f.title order by year) `Played movies` from persons p inner join films_persons fp on(p.id=fp.person_id) inner join films f on(f.id=fp.film_id) where fp.person_profile=5 group by p.full_name order by count(p.full_name) desc limit 1;
+
+3.2) 
+
+
+
+
+
 
 
 test) select s.title, count(s.id = fs.series_id) as cnt_films from series s inner join films_series fs on (s.id = fs.series_id) group by s.title;
