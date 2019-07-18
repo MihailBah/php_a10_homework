@@ -1,0 +1,339 @@
+mysql> explain select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: s
+   partitions: NULL
+         type: ALL
+possible_keys: PRIMARY
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 2
+     filtered: 100.00
+        Extra: Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fs
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 6
+     filtered: 16.67
+        Extra: Using where; Using join buffer (Block Nested Loop)
+*************************** 3. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: f
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+*************************** 4. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fp
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 52
+     filtered: 10.00
+        Extra: Using where; Using join buffer (Block Nested Loop)
+*************************** 5. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: p
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fp.person_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+5 rows in set, 1 warning (0.03 sec)
+
+mysql> explain select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: s
+   partitions: NULL
+         type: ALL
+possible_keys: PRIMARY
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 2
+     filtered: 100.00
+        Extra: Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fs
+   partitions: NULL
+         type: ALL
+possible_keys: NULL
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 6
+     filtered: 16.67
+        Extra: Using where; Using join buffer (Block Nested Loop)
+*************************** 3. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: f
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+*************************** 4. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fp
+   partitions: NULL
+         type: ref
+possible_keys: UC_films_persons
+          key: UC_films_persons
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 8
+     filtered: 100.00
+        Extra: Using index
+*************************** 5. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: p
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fp.person_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+5 rows in set, 1 warning (0.03 sec)
+
+mysql> explain select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: s
+   partitions: NULL
+         type: ALL
+possible_keys: PRIMARY
+          key: NULL
+      key_len: NULL
+          ref: NULL
+         rows: 2
+     filtered: 100.00
+        Extra: Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fs
+   partitions: NULL
+         type: index
+possible_keys: UC_films_series
+          key: UC_films_series
+      key_len: 8
+          ref: NULL
+         rows: 6
+     filtered: 16.67
+        Extra: Using where; Using index; Using join buffer (Block Nested Loop)
+*************************** 3. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: f
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+*************************** 4. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fp
+   partitions: NULL
+         type: ref
+possible_keys: UC_films_persons
+          key: UC_films_persons
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 8
+     filtered: 100.00
+        Extra: Using index
+*************************** 5. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: p
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fp.person_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+5 rows in set, 1 warning (0.05 sec)
+
+mysql> explain select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: s
+   partitions: NULL
+         type: index
+possible_keys: PRIMARY
+          key: UC_series
+      key_len: 452
+          ref: NULL
+         rows: 2
+     filtered: 100.00
+        Extra: Using index; Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fs
+   partitions: NULL
+         type: index
+possible_keys: UC_films_series
+          key: UC_films_series
+      key_len: 8
+          ref: NULL
+         rows: 6
+     filtered: 16.67
+        Extra: Using where; Using index; Using join buffer (Block Nested Loop)
+*************************** 3. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: f
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+*************************** 4. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fp
+   partitions: NULL
+         type: ref
+possible_keys: UC_films_persons
+          key: UC_films_persons
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 8
+     filtered: 100.00
+        Extra: Using index
+*************************** 5. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: p
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fp.person_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+5 rows in set, 1 warning (0.04 sec)
+
+mysql> explain select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+*************************** 1. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: s
+   partitions: NULL
+         type: index
+possible_keys: PRIMARY
+          key: UC_series
+      key_len: 452
+          ref: NULL
+         rows: 2
+     filtered: 100.00
+        Extra: Using index; Using temporary; Using filesort
+*************************** 2. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fs
+   partitions: NULL
+         type: index
+possible_keys: UC_films_series
+          key: UC_films_series
+      key_len: 8
+          ref: NULL
+         rows: 6
+     filtered: 16.67
+        Extra: Using where; Using index; Using join buffer (Block Nested Loop)
+*************************** 3. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: f
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+*************************** 4. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: fp
+   partitions: NULL
+         type: ref
+possible_keys: UC_films_persons
+          key: UC_films_persons
+      key_len: 4
+          ref: filmsDB.fs.film_id
+         rows: 8
+     filtered: 100.00
+        Extra: Using index
+*************************** 5. row ***************************
+           id: 1
+  select_type: SIMPLE
+        table: p
+   partitions: NULL
+         type: eq_ref
+possible_keys: PRIMARY
+          key: PRIMARY
+      key_len: 4
+          ref: filmsDB.fp.person_id
+         rows: 1
+     filtered: 100.00
+        Extra: NULL
+5 rows in set, 1 warning (0.00 sec)

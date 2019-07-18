@@ -1,0 +1,47 @@
+2) select concat('Series: ', s.title, ' film: ', f.title) as `Films in BD` from series s inner join films_series fs on (s.id = fs.series_id) inner join films f on (f.id = fs.film_id) order by s.title, f.year desc;
+
+
+test) select s.title, count(s.id = fs.series_id) as cnt_films from series s inner join films_series fs on (s.id = fs.series_id) group by s.title;
+
+
+String_agg
+
+select concat('Film ', f.title, ' ', f.year, ' year, series of ', s.title, ', cast : ', casts ) from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id);
+
+
+
+
+select concat('Film ', f.title, ' ', f.year, ' year, series of ', s.title, ', cast : ', group_concat(p.full_name)) from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id);
+
+
+
+select concat('Film ', f.title, ' ', f.year, ' year, series of ', s.title, ', cast : ', group_concat(p.full_name)) from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id);
+
+
+
+***********
+
+
+select concat('Film ', f.title, ' ', f.year, ' year, series of ', s.title, ', cast : ', concat(p.full_name, ' born in ', p.born_year, ' ', person_profile)) from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id);
+
+select group_concat(concat(full_name, ' ', born_year) from persons p inner join films_persons fp on(p.id=person_id) where film_id = 1;
+
+++++++++
+
+select group_concat(con) casts from (select concat(p.full_name, ' born in ', p.born_year, ' ', person_profile) con from persons p inner join films_persons fp on(p.id=person_id) where film_id = 1) y;
+
+
+select concat('Film ', f.title, ' ', f.year, ' year, series of ', s.title, ', cast : ', (select group_concat(con) casts from (select concat(p.full_name, ' born in ', p.born_year, ' ', person_profile) con from persons p inner join films_persons fp on(p.id=person_id) where film_id = 1) y)) from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id));
+
+
+------------------
+
+select goup_concat(concat(p.full_name, ' born in ', p.born_year, ' ', person_profile) from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by 1;
+
+AAAAAAAAAAAAAAAAA
+
+
+select f.title, year, s.title, group_concat(concat(p.full_name, ' born in ', p.born_year, ' ', person_profile)) casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title;
+
+select f.title as Film, year, s.title as Series, concat(group_concat(concat(p.full_name, ' born in ', p.born_year, ' is ', person_profile)), '.') casts from films f inner join films_series fs on(f.id=film_id) inner join series s on(s.id=series_id) inner join films_persons fp on(f.id=fp.film_id) inner join persons p on(p.id=person_id) group by f.title, year, s.title\G
+
