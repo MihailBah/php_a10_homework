@@ -1,0 +1,5 @@
+Задание, залить домашке на гитхаб или другой ресурс.
+
+https://github.com/MihailBah/php_a10_homework
+
+http://gitlab.a-level.com.ua/mihail.bahmut/PHP_A10_HW
