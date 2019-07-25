@@ -1,5 +1,7 @@
-Задание, залить домашке на гитхаб или другой ресурс.
+Задание из дома подключиться к Хелиуму - сделано
 
-https://github.com/MihailBah/php_a10_homework
+Коммандно сделать репозиторий и сделать по паре коммитов
 
-http://gitlab.a-level.com.ua/mihail.bahmut/PHP_A10_HW
+https://github.com/MihailBah/fallout/graphs/contributors
+
+
