@@ -16,10 +16,10 @@ if [ -z $MY_URL ] || [ -z $SEARCH_WORD ]
 		echo "ERROR, check parameters!";
 	else
 		#RES_URL=$(curl $MY_URL); # if need use curl more then one time, use this.
-		#COUNT_WORD=$(echo "$RES_URL" | grep -o "$SEARCH_WORD" | wc -l);
+		#COUNT_WORD=$(echo "$RES_URL" | grep -o "$SEARCH_WORD" | wc -w);
 		# Words cnt. Add to grep -i, register off. Uncomment RES_URL to use this.
 
-		arr_num_str=( $(curl "$MY_URL" | grep -in "$SEARCH_WORD" | cut -f1 -d":") );
+		arr_num_str=( $(curl "$MY_URL" | grep -n "$SEARCH_WORD" | cut -f1 -d":") );
 		# chenge "curl $MY_URL" to "echo $RES_URL" and uncomment RES_URL if need use curl more then one time.
 
 		arr_num_str_lenght=${#arr_num_str[@]}; # Lines cnt
