@@ -17,5 +17,5 @@ DEST_PATH=$(echo "$MY_HOST:~/public_html/screenshots/");
 
 xfce4-screenshooter -w -o cat > /tmp/$FILE_NAME; # -f full screen
 scp -p /tmp/$FILE_NAME $DEST_PATH;
-echo "screenshots.mihailbahmut.php.a-level.com.ua/$FILE_NAME" | xclip -selection clipboard;
+echo "screenshots.$MY_HOST/$FILE_NAME" | sed "s/@students/.php/" | xclip -selection clipboard;
 rm /tmp/$FILE_NAME;
