@@ -1,23 +1,21 @@
 #!/bin/bash
 
+MY_HOST=mihailbahmut@students.a-level.com.ua;
+
 for param in $@
 do
 	IN_PARAM=$(echo "$param" | cut -f1 -d"=")
 	CONTENT_PARAM=$(echo "$param" | cut -f2 -d"=")
 	case "$IN_PARAM" in
 		--host) MY_HOST=$CONTENT_PARAM;;
-		#--file) FILE=$CONTENT_PARAM;;
 	esac
 done
 
-FILE_NAME=$(date +"%F_%H_%M_%S_%N").png
 
-xfce4-screenshooter -f -o cat > $FILE_NAME
-scp -p $FILE_NAME $MY_HOST:~/public_html/screenshots/;
-sleep 30;
-rm $FILE_NAME;
+FILE_NAME=$(date +"%F_%H_%M_%S_%N").png;
+DEST_PATH=$(echo "$MY_HOST:~/public_html/screenshots/");
 
-
-#echo $FILE_NAME
-#echo "screenshots.mihailbahmut.php.a-level.com.ua/$FILE_NAME"
-#http://screenshots.mihailbahmut.php.a-level.com.ua/1.jpg
+xfce4-screenshooter -w -o cat > /tmp/$FILE_NAME; # -f full screen
+scp -p /tmp/$FILE_NAME $DEST_PATH;
+echo "screenshots.mihailbahmut.php.a-level.com.ua/$FILE_NAME" | xclip -selection clipboard;
+rm /tmp/$FILE_NAME;
