@@ -1,0 +1,14 @@
+3. Сделать чтобы модель из 4-го занятия по ООП работала с EAV-структурой.
+Создать класс ProductModel (Он уже может наследоваться от другой абстрактной модели), применить дамп из файла eav.sql. Модель должна отрабатывать так:
+
+$productModel = new ProductModel();
+$productModel->load(1);//подгрузилась информация для T-shirt
+echo $productModel->getWeight();//выводит 150
+echo $productModel->getColor();//выводит blue
+echo $productModel->getRam();//выводит null, у этого продукта нет такого атрибута
+
+Аналогично для ноутбука:
+
+$productModel = new ProductModel();
+$productModel->load(2);//подгрузились данные ноута
+echo $productModel->getRam();//выводит 4G
