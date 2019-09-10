@@ -1,0 +1,10 @@
+This is customers.html</br></br>
+
+<table>
+	{% for customer in customers %}
+	<tr>
+		<td>Name: {{ customer.name }}</td>
+		<td>{{ customer['age'] }} year.</td>
+	</tr>
+	{% endfor %}
+</table>
