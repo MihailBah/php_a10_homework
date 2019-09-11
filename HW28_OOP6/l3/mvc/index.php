@@ -4,23 +4,29 @@ $request = $_GET['url'];
 $requestParts = explode('/', $request);
 
 $path_controllers = 'Controllers';
+
 $default_action = 'Index';
 $default_controller = 'Index';
-$default_path = $path_controllers . DIRECTORY_SEPARATOR . $default_action . DIRECTORY_SEPARATOR . $default_controller . '.php';
 
 $path = $path_controllers . DIRECTORY_SEPARATOR . $request . '.php';
+$controllerName = $requestParts[1] ?? '';
 
-if (!is_file($path)) {
+
+if (empty($requestParts[1])) {
 	$controllerName = $default_controller;
-	if (!empty($requestParts[0]) &&  is_dir($path_controllers . DIRECTORY_SEPARATOR . $requestParts[0])) {
-		$path = $path_controllers . DIRECTORY_SEPARATOR . $requestParts[0] . DIRECTORY_SEPARATOR . $default_controller . '.php';
+	if (!empty($requestParts[0])) {
+		$actionName = $requestParts[0];
 	} else {
-		$path = $default_path;
+		$actionName = $default_action;
 	}
-} else {
-	$controllerName = $requestParts[1];
+	$path = $path_controllers . DIRECTORY_SEPARATOR . $actionName . DIRECTORY_SEPARATOR . $controllerName . '.php';
 }
 
-require_once($path);
-$controller = new $controllerName();
-$controller->execute();
+if (is_file($path)) {
+	require_once($path);
+	$controller = new $controllerName();
+	$controller->execute();
+} else {
+	//redirect to 404
+	echo '404';
+}
